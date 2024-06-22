@@ -4,5 +4,6 @@ from .instance_evaluation import InstanceSegEvaluator
 from .lvis_evaluation import LVISEvaluator
 from .oideval import OIDEvaluator
 from .refcoco_evaluation import RefCOCOEvaluator
+from  .omnilable_evaluation import OmniLabelEvaluator
 
 __all__ = [k for k in globals().keys() if not k.startswith("_")]

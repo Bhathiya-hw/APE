@@ -1,4 +1,5 @@
 from . import d_cube as _d_cube
+from . import omnilabel as _omnilabel
 from . import flickr30k as _flickr30k
 from . import gqa as _gqa
 from . import grit as _grit
