@@ -57,14 +57,12 @@ def load_omnilabel_json(json_file, image_root, anno_root, dataset_name=None, ext
 
     with open(json_file, 'r') as f:
         data_json= json.load(f)
-
+    print(data_json['descriptions'])
     if timer.seconds() > 1:
         logger.info("Loading omnilabels takes {:.2f} seconds.".format(timer.seconds()))
 
     if dataset_name is not None:
         meta = MetadataCatalog.get(dataset_name)
-        # The categories in a custom json file may not be sorted.
-
         images = data_json['images']
         imgid2img= {i['id']: i['file_name'] for i in images}
 
@@ -72,8 +70,11 @@ def load_omnilabel_json(json_file, image_root, anno_root, dataset_name=None, ext
         id2desc = {d['id']:d['text'] for d in descriptions}
         desc2id = {v:k for k,v in id2desc.items()}
 
-        thing_classes = [v for  k,v in id2desc.items()]
+        thing_classes = [v for k, v in id2desc.items()]
         meta.thing_classes = thing_classes
+
+        thing_dataset_id_to_contiguous_id = {k: i+1 for i, k in enumerate(id2desc.keys())}
+        meta.thing_dataset_id_to_contiguous_id = thing_dataset_id_to_contiguous_id
 
         img2desc = {}
         for desc in descriptions:
@@ -107,7 +108,8 @@ def load_omnilabel_json(json_file, image_root, anno_root, dataset_name=None, ext
             record["width"] = w
             record["image_id"] = i
             record['expressions'] = d
-            record['sent_ids'] = [desc2id[exp] for exp in record['expressions']]
+            record['sent_ids'] = [thing_dataset_id_to_contiguous_id[desc2id[exp]] for exp in record['expressions']]
+            print(record['sent_ids'])
             record['annotations'] = img2annt[i]
             dataset_dicts.append(record)
         return dataset_dicts
@@ -169,7 +171,9 @@ def _get_omnilabel_metadata(json_file):
     id2desc = {d['id']: d['text'] for d in descriptions}
 
     thing_classes = [v for k, v in id2desc.items()]
-    thing_dataset_id_to_contiguous_id = {i + 1: i for i in range(len(thing_classes))}
+
+    print(len(thing_classes))
+    thing_dataset_id_to_contiguous_id = {k: i for i,k in enumerate(id2desc.keys())}
     return {
         "thing_dataset_id_to_contiguous_id": thing_dataset_id_to_contiguous_id,
         "thing_classes": thing_classes,
@@ -182,7 +186,8 @@ def register_all_omnilabel(root):
         for key, (image_root, json_file, anno_root) in splits_per_dataset.items():
             register_omnilabel_instances(
                 key,
-                _get_omnilabel_metadata(os.path.join(root, anno_root, json_file)),
+                {},
+                # _get_omnilabel_metadata(os.path.join(root, anno_root, json_file)),
                 # os.path.join(root, json_file) if "://" not in json_file else json_file,
                 os.path.join(root, anno_root, json_file),
                 os.path.join(root, image_root),
