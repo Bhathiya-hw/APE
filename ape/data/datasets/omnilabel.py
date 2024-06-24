@@ -73,7 +73,7 @@ def load_omnilabel_json(json_file, image_root, anno_root, dataset_name=None, ext
         thing_classes = [v for k, v in id2desc.items()]
         meta.thing_classes = thing_classes
 
-        thing_dataset_id_to_contiguous_id = {k: i+1 for i, k in enumerate(id2desc.keys())}
+        thing_dataset_id_to_contiguous_id = {k: i for i, k in enumerate(id2desc.keys())}
         meta.thing_dataset_id_to_contiguous_id = thing_dataset_id_to_contiguous_id
 
         img2desc = {}
