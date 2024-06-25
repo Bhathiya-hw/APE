@@ -90,7 +90,7 @@ def load_omnilabel_json(json_file, image_root, anno_root, dataset_name=None, ext
             for a in data_json['annotations']:
                 image_id =  a['image_id']
                 for desc_id in a['description_ids']:
-                    obj = {"image_id": image_id, "description_id": desc_id, "bbox": a['bbox'], "annt_id":annt_id}
+                    obj = {"image_id": image_id, "category_id": desc_id, "bbox": a['bbox'], "annt_id":annt_id}
                     if image_id in a:
                         img2annt[image_id].append(obj)
                         annt_id +=1
