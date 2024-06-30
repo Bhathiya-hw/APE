@@ -142,7 +142,7 @@ _PREDEFINED_SPLITS_OMNILABEL = {
         )
     },
     "omnilabel_val_v0.1.4_all": {
-        "omnilabel_val_v0.1.3_all": (
+        "omnilabel_val_v0.1.4_all": (
             "omnilabel/images",
             "dataset_all_val_v0.1.4.json",
             "omnilabel",
