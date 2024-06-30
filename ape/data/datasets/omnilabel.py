@@ -110,7 +110,8 @@ def load_omnilabel_json(json_file, image_root, anno_root, dataset_name=None, ext
             record['expressions'] = d
             record['sent_ids'] = [thing_dataset_id_to_contiguous_id[desc2id[exp]] for exp in record['expressions']]
             print(record['sent_ids'])
-            record['annotations'] = img2annt[i]
+            if i in img2annt:
+                record['annotations'] = img2annt[i]
             dataset_dicts.append(record)
         return dataset_dicts
 
