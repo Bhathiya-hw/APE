@@ -135,9 +135,16 @@ _PREDEFINED_SPLITS_OMNILABEL = {
     },
     "omnilabel_val_v0.1.3_all":{
         "omnilabel_val_v0.1.3_all": (
-            "omnilabel/omnilabel/images",
+            "omnilabel/images",
             "dataset_all_val_v0.1.3.json",
             "omnilabel/omnilabel_val_v0.1.3/",
+        )
+    },
+    "omnilabel_val_v0.1.4_all": {
+        "omnilabel_val_v0.1.3_all": (
+            "omnilabel/images",
+            "dataset_all_val_v0.1.4.json",
+            "omnilabel",
         )
     },
     "omnilabel_val_v0.1.3_coco":{
