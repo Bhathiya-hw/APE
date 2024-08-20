@@ -10,9 +10,9 @@ from ape.modeling.backbone.vit import get_vit_lr_decay_rate
 from ape.modeling.backbone.vit_eva02 import SimpleFeaturePyramid, ViT
 from ape.modeling.text import EVA01CLIP
 
-from .....detectron2.configs.common.data.constants import constants
+from .....detrex.detectron2.configs.common.data.constants import constants
 from ...common.data.coco_refcoco_instance_lsj1024 import dataloader
-from .models.ape_deta_r50 import model
+from .ape_deta_r50 import model
 
 model.model_vision.pixel_mean = constants.imagenet_rgb256_mean
 model.model_vision.pixel_std = constants.imagenet_rgb256_std
@@ -39,6 +39,7 @@ model.model_vision.backbone = L(SimpleFeaturePyramid)(
         out_feature="last_feat",
         use_act_checkpoint=True,
         xattn=True,
+        swiglu=True,
     ),
     in_feature="${.net.out_feature}",
     out_channels=256,
@@ -75,11 +76,11 @@ optimizer.betas = (0.9, 0.999)
 optimizer.weight_decay = 1e-4
 
 train = get_config("common/train.py").train
-train.max_iter = 90000
-train.eval_period = 5000
+train.max_iter = 10000
+train.eval_period = 2000
 train.log_period = 20
 
-train.checkpointer.period = 5000
+train.checkpointer.period = 2000
 train.checkpointer.max_to_keep = 2
 
 train.clip_grad.enabled = True
