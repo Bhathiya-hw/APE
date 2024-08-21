@@ -12,7 +12,7 @@ from ape.modeling.text import EVA01CLIP
 
 from .....detrex.detectron2.configs.common.data.constants import constants
 from ...common.data.coco_refcoco_instance_lsj1024 import dataloader
-from .ape_deta_r50 import model
+from .ape_deta_r50_ep12 import model
 
 model.model_vision.pixel_mean = constants.imagenet_rgb256_mean
 model.model_vision.pixel_std = constants.imagenet_rgb256_std
