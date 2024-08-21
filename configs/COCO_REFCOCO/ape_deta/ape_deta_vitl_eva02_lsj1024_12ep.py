@@ -39,7 +39,6 @@ model.model_vision.backbone = L(SimpleFeaturePyramid)(
         out_feature="last_feat",
         use_act_checkpoint=True,
         xattn=True,
-        swiglu=True,
     ),
     in_feature="${.net.out_feature}",
     out_channels=256,
