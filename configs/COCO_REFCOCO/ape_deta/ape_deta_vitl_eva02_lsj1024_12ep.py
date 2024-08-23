@@ -90,7 +90,7 @@ train.clip_grad.params.norm_type = 2
 train.device = "cuda"
 
 train.init_checkpoint = (
-    "models/Yunxin-CV/EVA-02/eva02/pt/eva02_L_pt_in21k_p14to16.pt?matching_heuristics=True"
+    "models/Yuxin-CV/EVA-02/eva02/pt/eva02_L_pt_in21k_p14to16.pt?matching_heuristics=True"
 )
 
 train.amp.enabled = True
