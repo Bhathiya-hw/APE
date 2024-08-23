@@ -100,9 +100,9 @@ lr_multiplier = get_config("common/coco_schedule.py").lr_multiplier_12ep
 lr_multiplier.scheduler.milestones = [75000, 90000]
 lr_multiplier.warmup_length = 1000 / train.max_iter
 
-dataloader.train.num_workers = 16
-dataloader.train.total_batch_size = 16
-dataloader.train.total_batch_size_list = [16, 16]
+dataloader.train.num_workers = 2
+dataloader.train.total_batch_size = 2
+dataloader.train.total_batch_size_list = [2, 2]
 dataloader.train.mapper.image_format = "RGB"
 dataloader.train.mapper.use_instance_mask = True
 
