@@ -78,7 +78,7 @@ optimizer.weight_decay = 1e-4
 train = get_config("common/train.py").train
 train.max_iter = 10000
 train.eval_period = 2000
-train.log_period = 20
+train.log_period = 50
 
 train.checkpointer.period = 2000
 train.checkpointer.max_to_keep = 2
@@ -100,9 +100,9 @@ lr_multiplier = get_config("common/coco_schedule.py").lr_multiplier_12ep
 lr_multiplier.scheduler.milestones = [75000, 90000]
 lr_multiplier.warmup_length = 1000 / train.max_iter
 
-dataloader.train.num_workers = 2
-dataloader.train.total_batch_size = 2
-dataloader.train.total_batch_size_list = [2, 2]
+dataloader.train.num_workers = 4
+dataloader.train.total_batch_size = 8
+dataloader.train.total_batch_size_list = [8, 8]
 dataloader.train.mapper.image_format = "RGB"
 dataloader.train.mapper.use_instance_mask = True
 
@@ -117,3 +117,4 @@ model.model_language = L(EVA01CLIP)(
     clip_model="EVA_CLIP_g_14_X", cache_dir="models/BAAI/EVA/eva_clip_psz14.pt"
 )
 model.model_vision.embed_dim_language = 1024
+
