@@ -7,7 +7,7 @@ from ...COCO_InstanceSegmentation.ape_deta.ape_deta_r50_12ep import (
     optimizer,
     train,
 )
-from ...common.data.coco_refcoco_instance import dataloader
+from ...common.data.coco_refcoco_instance_wtags import dataloader
 
 model.model_vision.num_classes = 80
 model.model_vision.select_box_nums_for_evaluation = 300
@@ -23,7 +23,7 @@ dataloader.train.total_batch_size = 16
 dataloader.train.total_batch_size_list = [16, 16]
 
 model.model_vision.dataset_prompts = ["name", "expression"]
-model.model_vision.dataset_names = ["coco_2017", "refcoco_wtags"]
+model.model_vision.dataset_names = ["coco_2017", "refcoco"]
 model.model_vision.dataset_metas = dataloader.train.dataset.names
 
 train.output_dir = "output/" + __file__[:-3]

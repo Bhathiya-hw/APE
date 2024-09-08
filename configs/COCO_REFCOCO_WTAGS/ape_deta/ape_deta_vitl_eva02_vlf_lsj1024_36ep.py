@@ -11,7 +11,7 @@ from ape.modeling.backbone.vit_eva02 import SimpleFeaturePyramid, ViT
 from ape.modeling.text import EVA01CLIP
 
 from .....detectron2.configs.common.data.constants import constants
-from ...common.data.coco_refcoco_instance_lsj1024 import dataloader
+from ...common.data.coco_refcoco_instance_lsj1024_wtags import dataloader
 from .models.ape_deta_r50_vlf import model
 
 model.model_vision.pixel_mean = constants.imagenet_rgb256_mean

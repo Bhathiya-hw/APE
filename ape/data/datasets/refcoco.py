@@ -175,6 +175,8 @@ Category ids in annotations are not in [1, #categories]! We'll apply a mapping f
         record["width"] = img_dict["width"]
         if "expressions" in img_dict:
             record["expressions"] = img_dict["expressions"]
+        if "expression_tags" in img_dict:
+            record["expression_tags"] = img_dict["expression_tags"]
         image_id = record["image_id"] = img_dict["id"]
 
         objs = []
@@ -316,6 +318,11 @@ _PREDEFINED_SPLITS_REFCOCO = {
     "refcoco-mixed_group-by-image": (
         "coco/train2014",
         "SeqTR/refcoco-mixed_group-by-image/instances_cocofied_train.json",
+    ),
+    #with tags
+        "refcoco-mixed_group-by-image-wtags": (
+        "coco/train2014",
+        "SeqTR/refcoco-mixed_group-by-image-wtags/instances_cocofied_train.json",
     ),
 }
 

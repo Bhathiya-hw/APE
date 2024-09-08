@@ -11,7 +11,7 @@ from ape.modeling.backbone.vit_eva02 import SimpleFeaturePyramid, ViT
 from ape.modeling.text import EVA01CLIP
 
 from .....detrex.detectron2.configs.common.data.constants import constants
-from ...common.data.coco_refcoco_instance_lsj1024 import dataloader
+from ...common.data.coco_refcoco_instance_lsj1024_wtags import dataloader
 from .ape_deta_r50_12ep import model
 
 model.model_vision.pixel_mean = constants.imagenet_rgb256_mean
@@ -107,7 +107,7 @@ dataloader.train.mapper.image_format = "RGB"
 dataloader.train.mapper.use_instance_mask = True
 
 model.model_vision.dataset_prompts = ["name", "expression"]
-model.model_vision.dataset_names = ["coco_2017", "refcoco_wtags"]
+model.model_vision.dataset_names = ["coco_2017", "refcoco"]
 model.model_vision.dataset_metas = dataloader.train.dataset.names
 
 train.output_dir = "output/" + __file__[:-3]

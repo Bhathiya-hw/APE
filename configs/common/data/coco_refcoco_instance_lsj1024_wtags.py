@@ -23,7 +23,7 @@ dataloader.train = L(build_detection_train_loader_multi_dataset)(
     dataset=L(get_detection_dataset_dicts_multi_dataset)(
         names=(
             "coco_2017_train",
-            "refcoco-mixed",
+            "refcoco-mixed_group-by-image-wtags",
         ),
         filter_emptys=[True, True],
     ),
@@ -48,7 +48,7 @@ dataloader.train = L(build_detection_train_loader_multi_dataset)(
         recompute_boxes=True,
         dataset_names=(
             "coco_2017_train",
-            "refcoco-mixed",
+            "refcoco-mixed_group-by-image-wtags",
         ),
     ),
     total_batch_size=16,
