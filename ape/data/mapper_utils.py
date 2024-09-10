@@ -67,9 +67,10 @@ def transform_phrases(phrases, transforms):
     return phrases
 
 
-def transform_expressions(expressions, transforms):
+def transform_expressions(expressions, transforms,expression_tags=None):
     # pick one expression if there are multiple expressions
-    expression = expressions[np.random.choice(len(expressions))]
+    selected_pos = np.random.choice(len(expressions))
+    expression = expressions[selected_pos]
     expression = clean_string(expression)
     # deal with hflip for expression
     for x in transforms:
@@ -77,7 +78,10 @@ def transform_expressions(expressions, transforms):
             expression = (
                 expression.replace("left", "@").replace("right", "left").replace("@", "right")
             )
-    return expression
+    if expression_tags:
+        return expression, expression_tags[selected_pos]
+    else:
+        return expression
 
 
 def has_ordinal_num(phrases):

@@ -104,8 +104,8 @@ dataloader.train.total_batch_size_list = [16, 16]
 dataloader.train.mapper.image_format = "RGB"
 dataloader.train.mapper.use_instance_mask = True
 
-model.model_vision.dataset_prompts = ["name", "expression"]
-model.model_vision.dataset_names = ["coco_2017", "refcoco"]
+model.model_vision.dataset_prompts = ["expression"]
+model.model_vision.dataset_names = ["refcoco"]
 model.model_vision.dataset_metas = dataloader.train.dataset.names
 
 train.output_dir = "output/" + __file__[:-3]

@@ -227,6 +227,9 @@ Category ids in annotations are not in [1, #categories]! We'll apply a mapping f
             phrase = anno.get("phrase", None)
             if phrase:
                 obj["phrase"] = phrase
+            expression_tags = anno.get("expression_tags", None)
+            if expression_tags:
+                obj['expression_tags'] = expression_tags
             obj["bbox_mode"] = BoxMode.XYWH_ABS
             if id_map:
                 annotation_category_id = obj["category_id"]
@@ -320,9 +323,9 @@ _PREDEFINED_SPLITS_REFCOCO = {
         "SeqTR/refcoco-mixed_group-by-image/instances_cocofied_train.json",
     ),
     #with tags
-        "refcoco-mixed_group-by-image-wtags": (
+    "refcoco-mixed-wtags": (
         "coco/train2014",
-        "SeqTR/refcoco-mixed_group-by-image-wtags/instances_cocofied_train.json",
+        "SeqTR/refcoco-mixed-wtags/instances_cocofied_train.json",
     ),
 }
 

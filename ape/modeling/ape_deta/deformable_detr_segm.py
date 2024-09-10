@@ -186,6 +186,11 @@ class DeformableDETRSegm(DeformableDETR):
                     pass
                 else:
                     x["expressions"] = [x["expressions"]]
+                if 'expression_tags' in x:
+                    if isinstance(x['expression_tags'][0], List):
+                        pass
+                    else:
+                        x['expression_tags'] = [x['expression_tags']]
                 assert all([len(xx) > 0 for xx in x["expressions"]])
                 assert all([isinstance(xx, str) for xx in x["expressions"]])
                 self.test_topk_per_image = 1
@@ -232,6 +237,7 @@ class DeformableDETRSegm(DeformableDETR):
         else:
             text_promp_text_list = None
 
+        text_tags_list = None
         if prompt == "name":
             if text_promp_text_list:
                 text_list = text_promp_text_list
@@ -287,9 +293,13 @@ class DeformableDETRSegm(DeformableDETR):
                 text_list = [phrase for x in batched_inputs for phrase in x["instances"].phrases]
             elif prompt == "expression":
                 text_list = [xx for x in batched_inputs for xx in x["expressions"]]
+                text_tags_list = ["|".join(xx) for x in batched_inputs for xx in x['expression_tags']] 
+
 
             outputs_l = self.model_language.forward_text(text_list)
-
+            outputs_tl = None
+            if 'expression_tags' in batched_inputs:
+                outputs_tl = self.model_language.forward_text(text_tags_list)
             if self.text_feature_reduce_before_fusion:
                 if "last_hidden_state_eot" in outputs_l:
                     features_l = outputs_l["last_hidden_state_eot"]
@@ -299,8 +309,16 @@ class DeformableDETRSegm(DeformableDETR):
                         outputs_l["attention_mask"],
                         reduce_type=self.text_feature_reduce_type,
                     )
+                if "last_hidden_state_eot" in outputs_tl:
+                    features_tl = outputs_tl["last_hidden_state_eot"]
+                else:
+                    features_tl = text_utils.reduce_language_feature(
+                        outputs_tl["last_hidden_state"],
+                        outputs_tl["attention_mask"],
+                        reduce_type=self.text_feature_reduce_type,
+                    )                
+                features_l = torch.sum([features_l, features_tl], dim=0)
                 attention_mask_l = None
-
                 if (
                     self.text_feature_bank
                     and not self.text_feature_bank_reset

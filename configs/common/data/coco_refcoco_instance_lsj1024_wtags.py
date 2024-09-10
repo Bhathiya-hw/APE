@@ -22,8 +22,8 @@ dataloader = OmegaConf.create()
 dataloader.train = L(build_detection_train_loader_multi_dataset)(
     dataset=L(get_detection_dataset_dicts_multi_dataset)(
         names=(
-            "coco_2017_train",
-            "refcoco-mixed_group-by-image-wtags",
+            # "coco_2017_train",
+            "refcoco-mixed-wtags",
         ),
         filter_emptys=[True, True],
     ),
@@ -47,7 +47,7 @@ dataloader.train = L(build_detection_train_loader_multi_dataset)(
         use_instance_mask=True,
         recompute_boxes=True,
         dataset_names=(
-            "coco_2017_train",
+            # "coco_2017_train",
             "refcoco-mixed_group-by-image-wtags",
         ),
     ),

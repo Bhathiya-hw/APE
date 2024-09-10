@@ -101,13 +101,13 @@ lr_multiplier.scheduler.milestones = [75000, 90000]
 lr_multiplier.warmup_length = 1000 / train.max_iter
 
 dataloader.train.num_workers = 4
-dataloader.train.total_batch_size = 8
-dataloader.train.total_batch_size_list = [8, 8]
+dataloader.train.total_batch_size = 4
+dataloader.train.total_batch_size_list = [4, 4]
 dataloader.train.mapper.image_format = "RGB"
 dataloader.train.mapper.use_instance_mask = True
 
-model.model_vision.dataset_prompts = ["name", "expression"]
-model.model_vision.dataset_names = ["coco_2017", "refcoco"]
+model.model_vision.dataset_prompts = ["expression"]
+model.model_vision.dataset_names = ["refcoco"]
 model.model_vision.dataset_metas = dataloader.train.dataset.names
 
 train.output_dir = "output/" + __file__[:-3]
@@ -117,4 +117,3 @@ model.model_language = L(EVA01CLIP)(
     clip_model="EVA_CLIP_g_14_X", cache_dir="models/BAAI/EVA/eva_clip_psz14.pt"
 )
 model.model_vision.embed_dim_language = 1024
-

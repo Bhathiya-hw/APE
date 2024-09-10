@@ -249,10 +249,14 @@ class DatasetMapper_detr_instance:
             )
 
         if "expressions" in dataset_dict:
-            dataset_dict["expressions"] = mapper_utils.transform_expressions(
-                dataset_dict["expressions"], transforms
-            )
-
+            if "expression_tags" in dataset_dict:
+                dataset_dict["expressions"],dataset_dict["expression_tags"] = mapper_utils.transform_expressions(
+                    dataset_dict["expressions"], transforms, expression_tags=dataset_dict['expression_tags']
+                )
+            else:
+                dataset_dict["expressions"] = mapper_utils.transform_expressions(
+                    dataset_dict["expression"], transforms
+                )
         if not self.is_train:
             # USER: Modify this if you want to keep them for some reason.
             dataset_dict.pop("annotations", None)
