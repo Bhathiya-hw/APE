@@ -173,16 +173,18 @@ model.model_vision.instance_on = True
 model.model_vision.semantic_on = True
 model.model_vision.panoptic_on = False
 
-train.max_iter = 20000
-train.eval_period = 1000
+train.max_iter = 5000
+train.eval_period = 2000
+train.checkpointer.period = 1000
+train.checkpointer.max_to_keep = 3
 
 lr_multiplier = L(WarmupParamScheduler)(
     scheduler=L(MultiStepParamScheduler)(
         values=[1.0, 0.1],
-        milestones=[900000],
-        num_updates=1080000,
+        milestones=[4000],
+        num_updates=5000,
     ),
-    warmup_length=2000 / 270000,
+    warmup_length=1000 / 5000,
     warmup_method="linear",
     warmup_factor=0.001,
 )

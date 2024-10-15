@@ -287,7 +287,7 @@ dataloader.tests.append(
 dataloader.evaluators.append(
     [
         L(D3Evaluator)(dataset_name="d3_intra_scenario", max_dets_per_image=100, mode="FULL"),
-        L(D3Evaluator)(dataset_name="d3_intra_scenario", max_dets_per_image=100, mode="PRES"),
-        L(D3Evaluator)(dataset_name="d3_intra_scenario", max_dets_per_image=100, mode="ABS"),
+        # L(D3Evaluator)(dataset_name="d3_intra_scenario", max_dets_per_image=100, mode="PRES"),
+        # L(D3Evaluator)(dataset_name="d3_intra_scenario", max_dets_per_image=100, mode="ABS"),
     ]
 )

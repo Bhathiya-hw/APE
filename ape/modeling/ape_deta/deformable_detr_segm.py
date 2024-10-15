@@ -293,13 +293,13 @@ class DeformableDETRSegm(DeformableDETR):
                 text_list = [phrase for x in batched_inputs for phrase in x["instances"].phrases]
             elif prompt == "expression":
                 text_list = [xx for x in batched_inputs for xx in x["expressions"]]
-                if 'expression_tags' in batched_inputs:
+                if 'expression_tags' in batched_inputs[0]:
                     text_tags_list = ["|".join(xx) for x in batched_inputs for xx in x['expression_tags']] 
 
 
             outputs_l = self.model_language.forward_text(text_list)
             outputs_tl = None
-            if 'expression_tags' in batched_inputs:
+            if 'expression_tags' in batched_inputs[0]:
                 outputs_tl = self.model_language.forward_text(text_tags_list)
             if self.text_feature_reduce_before_fusion:
                 if "last_hidden_state_eot" in outputs_l:
@@ -319,7 +319,7 @@ class DeformableDETRSegm(DeformableDETR):
                             outputs_tl["attention_mask"],
                             reduce_type=self.text_feature_reduce_type,
                         )                
-                    features_l = torch.sum([features_l, features_tl], dim=0)
+                    features_l = torch.cat([features_l, features_tl], dim=0)
                 attention_mask_l = None
                 if (
                     self.text_feature_bank

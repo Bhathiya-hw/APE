@@ -1,5 +1,6 @@
 import logging
 import os
+import json
 
 import pycocotools.mask as mask_util
 
@@ -66,6 +67,9 @@ def load_d3_json(json_file, image_root, anno_root, dataset_name=None, extra_anno
     timer = Timer()
 
     d3 = D3(image_root, anno_root)
+
+    with open(f'{anno_root}/expression_tags.json', 'r') as f:
+        sentid2tags = json.load(f)
 
     if timer.seconds() > 1:
         logger.info("Loading d3 takes {:.2f} seconds.".format(timer.seconds()))
@@ -137,7 +141,9 @@ Category ids in annotations are not in [1, #categories]! We'll apply a mapping f
         else:
             assert False
         ref_list = [sent["raw_sent"] for sent in sent_list]
+        tag_list =  [sentid2tags[str(sent['id'])] for sent in sent_list]
         record["expressions"] = ref_list
+        record['expression_tags'] = tag_list
         if id_map:
             record["sent_ids"] = [id_map[x] for x in sent_ids]
 

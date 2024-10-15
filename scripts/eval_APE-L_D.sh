@@ -5,10 +5,11 @@ set -e
 
 
 kwargs="model.model_vision.transformer.proposal_ambiguous=1"
-init_checkpoint="/mnt/storage/checkpoints/APE/configs/LVISCOCOCOCOSTUFF_O365_OID_VGR_SA1B_REFCOCO_GQA_PhraseCut_Flickr30k/ape_deta/ape_deta_vitl_eva02_clip_vlf_lsj1024_cp_16x4_1080k_mdl_20230829_162438/model_final.pth"
+# init_checkpoint="/mnt/storage/checkpoints/APE/configs/LVISCOCOCOCOSTUFF_O365_OID_VGR_SA1B_REFCOCO_GQA_PhraseCut_Flickr30k/ape_deta/ape_deta_vitl_eva02_clip_vlf_lsj1024_cp_16x4_1080k_mdl_20230829_162438/model_final.pth"
+init_checkpoint="/pvc/ceph_rbd/WTAG_LVISCOCOCOCOSTUFF_O365_OID_VGR_SA1B_REFCOCO_GQA_PhraseCut_Flickr30k/ape_deta/ape_deta_vitl_eva02_clip_vlf_lsj1024_cp_16x4_1080k_mdl/ft2/model_0004999.pth"
 
 num_gpus=4
-output_dir="/pvc/ceph_rbd/output_dcube/APE/eval_APE-L_D/"
+output_dir="/pvc/ceph_rbd/output_dcube/APE/eval_APE-L_D/v2/"
 
 
 config_files=(
